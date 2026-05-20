@@ -1,22 +1,47 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+
+// Reactive state for API data
+const posts = ref([]);
+const isLoading = ref(true);
+
+// Fetch function
+async function fetchPosts() {
+  try {
+    const response = await fetch("http://localhost:8000/api/posts", {
+      method: "GET",
+      headers: {
+        Authorization:
+          "Bearer 1|jRaBZRYJsAlKIH6MGezWqrumMSy7fOEPl78yAP165a7f0f4b",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const result = await response.json();
+    posts.value = result.data;
+  } catch (error) {
+    console.error("Fetch failed:", error);
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+onMounted(fetchPosts);
 </script>
 
 <template>
   <main>
     <div class="container">
-      <div class="blog-area">
-        <div class="title-area">
-          <h2>How to configure VueJS</h2>
+      <h2>Posts</h2>
+      <p v-if="isLoading">Loading</p>
+      <div v-else class="blog-area">
+        <div class="blog-title">
+          <h3 v-for="post in posts">
+            <a :href="`/posts/${post.id}`"> {{ post.title }} </a>
+          </h3>
         </div>
-        <div class="content-area">
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta
-            totam rerum quas perferendis! Pariatur nesciunt quisquam quibusdam
-            laborum culpa unde id maiores doloremque odio enim maxime delectus
-            nam amet commodi, perferendis consequuntur saepe aspernatur ex,
-            consequatur fugiat repellat dicta nostrum!
-          </p>
+        <div class="blog-content">
+          <p></p>
         </div>
       </div>
     </div>
