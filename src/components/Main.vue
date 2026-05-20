@@ -8,7 +8,7 @@ const isLoading = ref(true);
 // Fetch function
 async function fetchPosts() {
   try {
-    const response = await fetch("http://localhost:8000/api/posts", {
+    const response = await fetch("http://192.168.100.46:8000/api/posts", {
       method: "GET",
       headers: {
         Authorization:
@@ -32,20 +32,42 @@ onMounted(fetchPosts);
 <template>
   <main>
     <div class="container">
-      <h2>Posts</h2>
       <p v-if="isLoading">Loading</p>
-      <div v-else class="blog-area">
+
+      <div v-else class="blog-area" v-for="post in posts">
         <div class="blog-title">
-          <h3 v-for="post in posts">
+          <p>{{ post.createdAt }}</p>
+          <h3>
             <a :href="`/posts/${post.id}`"> {{ post.title }} </a>
           </h3>
         </div>
+
         <div class="blog-content">
-          <p></p>
+          <p>{{ post.body }}</p>
         </div>
       </div>
     </div>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+main {
+  width: 70%;
+  margin: auto;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  padding: 40px 0px;
+}
+
+main h3 {
+  margin: 7px 0px;
+}
+
+main p {
+  color: #888;
+}
+
+.blog-area {
+  padding: 10px 0;
+}
+</style>
