@@ -1,9 +1,16 @@
 <template>
-  <Post v-for="post in posts" :date="post.date" :title="post.title" :content="post.content" :key="post.id" />
+  <Post
+    v-for="post in posts"
+    :date="post.date"
+    :title="post.title"
+    :content="post.content"
+    :key="post.id"
+    :to="`posts/${post.id}`"
+  />
 </template>
 
 <script setup>
-import Post from "@/components/Post.vue";
+import Post from "@/components/PostComponents/Post.vue";
 
 const posts = [
   {

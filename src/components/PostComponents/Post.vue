@@ -5,7 +5,9 @@
     </div>
     <div class="text-xl font-bold">
       <h2>
-        <a href="#" class="hover:text-green-600 transition-colors"> {{ post.title }} </a>
+        <RouterLink :to class="hover:text-green-600 transition-colors">
+          {{ post.title }}
+        </RouterLink>
       </h2>
     </div>
     <div class="text-sm text-white/70">
@@ -15,9 +17,14 @@
 </template>
 
 <script setup>
+import { RouterLink } from "vue-router";
 const post = defineProps({
   date: String,
   title: String,
   content: String,
+  to: {
+    type: String,
+    default: "",
+  },
 });
 </script>
