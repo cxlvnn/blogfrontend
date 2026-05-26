@@ -1,8 +1,12 @@
 <template>
-  <Post :title="post.title" :content="post.content" :date="post.date" />
+  <div class="flex flex-col mt-7 gap-5">
+    <BackButton to="/" message="All posts"/>
+    <Post :title="post.title" :content="post.content" :date="post.date" />
+  </div>
 </template>
 
 <script setup>
+import BackButton from "@/components/GlobalComponents/BackButton.vue";
 import Post from "@/components/PostComponents/PostView.vue";
 import { ref } from "vue";
 

@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router';
     </div>
     <div class="flex gap-4 text-sm opacity-70">
       <RouterLink to="/posts/create">Write</RouterLink>
-      <RouterLink to="/profile">Profile</RouterLink>
+      <RouterLink to="/me">Profile</RouterLink>
     </div>
   </nav>
 </template>

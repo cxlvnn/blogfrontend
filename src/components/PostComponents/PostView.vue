@@ -1,14 +1,14 @@
 <template>
-  <div class="flex flex-col gap-10 text-white py-15 border-b border-b-white/20">
+  <div class="flex flex-col text-white border-b border-b-white/20">
     <div class="text-3xl font-bold">
       <h1>
         {{ post.title }}
       </h1>
-      <div class="text-sm font-mono mt-2 text-white/50">
+      <div class="text-sm tracking-wide font-normal mt-2 text-white/50">
         <p>{{ post.date }}</p>
       </div>
     </div>
-    <div class="text-white">
+    <div class="flex py-13 text-white">
       <p v-html="post.content"></p>
     </div>
   </div>
