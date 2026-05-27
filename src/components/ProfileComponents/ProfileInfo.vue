@@ -1,10 +1,11 @@
 <template>
   <ProfileStatContainer
-    :postCount="routeProfile() ? 42 : ''"
-    readCount="100"
-    :joined="routeProfile() ? 8 : ''"
-    :streak="routeMe() ? 8 : ''"
-    :savedCount="routeMe() ? 24 : ''"
+    :postCount="routeProfile() ? user.postCount : ''"
+    :readCount="user.readCount"
+    :joined="routeProfile() ? 8 : null"
+    :streak="routeMe() ? 8 : null"
+    :savedCount="routeMe() ? 24 : null"
+    :user
   />
   <RelevantPosts v-show="routeProfile()" />
   <ReadingHistory v-show="routeMe()" />
@@ -27,4 +28,8 @@ const routeMe = () => {
   const route = useRoute();
   return route.path === "/me";
 };
+
+const props = defineProps({
+  user: Object,
+});
 </script>

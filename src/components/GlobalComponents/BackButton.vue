@@ -1,6 +1,11 @@
 <template>
-  <div class="flex flex-col gap-2 text-white/40">
-    <RouterLink :to> <i><-</i> {{ message }} </RouterLink>
+  <div>
+    <RouterLink
+      class="text-neutral-500 hover:text-blue-400 transition-colors"
+      :to
+    >
+      &larr; {{ message }}
+    </RouterLink>
   </div>
 </template>
 

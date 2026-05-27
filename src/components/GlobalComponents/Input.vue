@@ -1,8 +1,8 @@
 <template>
   <label class="block font-medium">{{ title }}</label>
   <input
-    type="{{ type }}"
-    name="{{ name }}"
+    :type
+    :name
     class="border border-white/20 focus:border-neutral-500 outline-none min-w-full p-2 my-2 rounded"
     :placeholder
   />

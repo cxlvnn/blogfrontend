@@ -5,7 +5,10 @@
     </div>
     <div class="text-xl font-bold">
       <h2>
-        <RouterLink :to class="hover:text-green-600 transition-colors">
+        <RouterLink
+          :to="`posts/${post.id}`"
+          class="hover:text-blue-600 transition-colors"
+        >
           {{ post.title }}
         </RouterLink>
       </h2>
@@ -19,12 +22,9 @@
 <script setup>
 import { RouterLink } from "vue-router";
 const post = defineProps({
+  id: Number,
   date: String,
   title: String,
   content: String,
-  to: {
-    type: String,
-    default: "",
-  },
 });
 </script>

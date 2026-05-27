@@ -8,7 +8,7 @@
         <p>{{ post.date }}</p>
       </div>
     </div>
-    <div class="flex py-13 text-white">
+    <div class="flex py-7 text-white">
       <p v-html="post.content"></p>
     </div>
   </div>

@@ -1,19 +1,36 @@
 <template>
   <div class="flex flex-col mt-7 gap-5">
-    <BackButton to="/" message="All posts"/>
-    <Post :title="post.title" :content="post.content" :date="post.date" />
+    <BackButton to="/" message="All Posts" />
+    <Post :title="post.title" :content="post.body" :date="post.createdAt" />
   </div>
 </template>
 
 <script setup>
 import BackButton from "@/components/GlobalComponents/BackButton.vue";
 import Post from "@/components/PostComponents/PostView.vue";
-import { ref } from "vue";
+import axios from "axios";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
-const post = ref({
-  title: "How to move around in vim",
-  content:
-    "Every project starts as a blank page. The temptation is to over-engineer—to add frameworks, databases, and complex build pipelines before a single word is written. Resist this. <br> A minimal blog is not a toy. It is a foundation. The key is separation of concerns: <br><br> Structure First <br> Keep your content in plain, portable formats (Markdown, JSON). Your presentation layer should consume this data, not own it. This makes future migrations trivial. <br><br> Design Tokens CSS <br> custom properties (variables) allow you to theme without rewriting. A single file of design tokens can scale to a full design system. <br><br> Start here. Add complexity only when it solves a real problem.",
-  date: "2026 - 05 - 19",
+const route = useRoute();
+const splits = route.path.split("/");
+const id = splits[splits.length - 1];
+
+const post = ref({});
+
+onMounted(async () => {
+  try {
+    const response = await axios.get(`http://localhost:8001/api/posts/${id}`, {
+      headers: {
+        Authorization:
+          "Bearer 1|RnPHPuErN80KDD8lzCrjGZsCsyd1u416tezFEpUW860186d4",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    post.value = response.data.data;
+  } catch (error) {
+    console.error("Error fetching the post", error);
+  }
 });
 </script>

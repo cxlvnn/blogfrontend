@@ -1,6 +1,6 @@
 <template>
-  <RelevantLinks v-show="routeProfile()" />
-  <ProfileSettingsLinks v-show="routeMe()" />
+  <RelevantLinks :user v-show="routeProfile()" />
+  <ProfileSettingsLinks :user v-show="routeMe()" />
 </template>
 
 <script setup>
@@ -17,4 +17,6 @@ const routeMe = () => {
   const route = useRoute();
   return route.path === "/me";
 };
+
+const props = defineProps({ user: Object });
 </script>

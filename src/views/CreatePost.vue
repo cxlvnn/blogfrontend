@@ -8,7 +8,7 @@ import Textarea from "@/components/GlobalComponents/Textarea.vue";
 <template>
   <Form
     action="http://localhost:8001/api/posts"
-    method="GET"
+    method="POST"
     title="Create a Post"
   >
     <div class="my-4">
