@@ -1,9 +1,20 @@
 <template>
-  <RelevantLinks />
+  <RelevantLinks v-show="routeProfile()" />
+  <ProfileSettingsLinks v-show="routeMe()" />
 </template>
 
 <script setup>
-import RelevantLinks from './RelevantLinks.vue';
+import { useRoute } from "vue-router";
+import RelevantLinks from "./RelevantLinks.vue";
+import ProfileSettingsLinks from "./ProfileSettingsLinks.vue";
 
+const routeProfile = () => {
+  const route = useRoute();
+  return route.path === "/profile";
+};
 
+const routeMe = () => {
+  const route = useRoute();
+  return route.path === "/me";
+};
 </script>

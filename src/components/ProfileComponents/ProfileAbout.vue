@@ -2,7 +2,7 @@
   <!-- base container -->
   <div class="flex gap-5 border-b border-b-white/20 py-7 px-2 text-white">
     <div class="logo">
-      <div class="p-6 bg-gray-400/10 rounded-full font-bold text-3xl">JD</div>
+      <div class="p-6 bg-gray-400/10 rounded-full font-medium text-white/60 text-3xl">JD</div>
     </div>
 
     <!-- profile author info -->
@@ -64,13 +64,10 @@ const routeProfile = () => {
   return route.path === '/profile';
 };
 
-console.log(routeProfile())
-
 const routeMe = () => {
   const route = useRoute();
   return route.path === '/me';
 };
-
 
 const props = defineProps({
   profileType: String,

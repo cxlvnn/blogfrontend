@@ -19,9 +19,5 @@ const post = defineProps({
   date: String,
   title: String,
   content: String,
-  to: {
-    type: String,
-    default: "",
-  },
 });
 </script>
