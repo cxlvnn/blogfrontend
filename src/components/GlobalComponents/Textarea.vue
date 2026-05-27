@@ -1,7 +1,7 @@
 <template>
   <label class="block">{{title}}</label>
   <textarea
-    class="border border-white/20 focus:border-green-800 rounded min-w-full min-h-50 p-2 my-2 outline-none"
+    class="border border-white/20 focus:border-neutral-500 rounded min-w-full min-h-50 p-2 my-2 outline-none"
     :name
     :placeholder
   ></textarea>

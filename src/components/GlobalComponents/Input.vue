@@ -1,9 +1,10 @@
 <template>
-  <label class="block">{{title}}</label>
+  <label class="block font-medium">{{ title }}</label>
   <input
     type="{{ type }}"
     name="{{ name }}"
-    class="border border-white/20 focus:border-green-800 outline-none min-w-full p-2 my-2 rounded"
+    class="border border-white/20 focus:border-neutral-500 outline-none min-w-full p-2 my-2 rounded"
+    :placeholder
   />
 </template>
 
@@ -14,6 +15,10 @@ const props = defineProps({
     default: "text",
   },
   name: {
+    type: String,
+    default: "",
+  },
+  placeholder: {
     type: String,
     default: "",
   },
