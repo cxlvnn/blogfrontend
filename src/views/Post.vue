@@ -6,9 +6,9 @@
 </template>
 
 <script setup>
+import api from "@/api/axios";
 import BackButton from "@/components/GlobalComponents/BackButton.vue";
 import Post from "@/components/PostComponents/PostView.vue";
-import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
@@ -20,14 +20,7 @@ const post = ref({});
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`http://localhost:8001/api/posts/${id}`, {
-      headers: {
-        Authorization:
-          "Bearer 1|RnPHPuErN80KDD8lzCrjGZsCsyd1u416tezFEpUW860186d4",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await api.get(`/posts/${id}`);
     post.value = response.data.data;
   } catch (error) {
     console.error("Error fetching the post", error);
