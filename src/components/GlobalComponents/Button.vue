@@ -1,13 +1,13 @@
 <template>
   <button
     type="submit"
-    class="hover:cursor-pointer"
+    class="inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition duration-200 cursor-pointer"
     :class="[
       design === 'primary'
-        ? 'border-none rounded bg-green-800 hover:bg-green-900 py-2 px-5'
+        ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm'
         : '',
       design === 'secondary'
-        ? 'border-none rounded bg-blue-800 hover:bg-blue-900 py-2 px-5'
+        ? 'bg-white/10 hover:bg-white/15 text-white border border-white/15'
         : '',
     ]"
   >

@@ -25,15 +25,11 @@ const createPost = async () => {
 </script>
 
 <template>
-  <Form @submit.prevent="createPost" title="Create a Post">
-    <div class="my-4">
-      <Input title="Title" v-model="form.title" type="text" />
-    </div>
-    <div>
-      <Textarea title="Content" v-model="form.body" />
-    </div>
-    <div class="flex justify-end my-5 pr-1">
-      <Button title="Create" design="primary" />
+  <Form @submit="createPost" title="Create a Post">
+    <Input title="Title" v-model="form.title" type="text" placeholder="A catchy title..." />
+    <Textarea title="Content" v-model="form.body" placeholder="Write your thoughts here..." />
+    <div class="flex justify-end">
+      <Button title="Publish" design="primary" />
     </div>
   </Form>
 </template>

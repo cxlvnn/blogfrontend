@@ -1,71 +1,40 @@
 <template>
-  <Form @submit.prevent="register" title="Join us to share your ideas">
-    <div class="my-4">
-      <Input
-        title="Name"
-        v-model="form.name"
-        type="text"
-        placeholder="John Doe"
-        :required="true"
-      />
-    </div>
+  <Form @submit="register" title="Join us to share your ideas">
+    <Input
+      title="Name"
+      v-model="form.name"
+      type="text"
+      placeholder="John Doe"
+      :required="true"
+    />
 
-    <div :class="[errors.email?.length ? 'my-1' : 'my-4']">
-      <Input
-        title="Email"
-        v-model="form.email"
-        type="email"
-        placeholder="johndoe@example.com"
-        :required="true"
-      />
-    </div>
-    <div v-if="errors.email?.length">
-      <p class="text-sm text-red-500">{{ errors.email[0] }}</p>
-    </div>
+    <Input
+      title="Email"
+      v-model="form.email"
+      type="email"
+      placeholder="johndoe@example.com"
+      :required="true"
+    />
+    <p v-if="errors.email?.length" class="text-sm text-red-400 -mt-3">{{ errors.email[0] }}</p>
 
-    <div class="mt-4">
-      <Input
-        title="Password"
-        v-model="form.password"
-        type="password"
-        placeholder="Choose a strong password"
-        :required="true"
-      />
-    </div>
-    <div class="flex mb-5 ml-4 text-sm text-neutral-500">
-      <ul class="list-disc">
-        <li
-          :class="{
-            'text-red-500 font-bold': errors.password?.some((e) =>
-              e.includes('characters'),
-            ),
-          }"
-        >
-          Must be at least 8 characters long
-        </li>
-        <li
-          :class="{
-            'text-red-500 font-bold': errors.password?.some((e) =>
-              e.includes('uppercase'),
-            ),
-          }"
-        >
-          Must contain at least one uppercase letter
-        </li>
-        <li
-          :class="{
-            'text-red-500 font-bold': errors.password?.some((e) =>
-              e.includes('number'),
-            ),
-          }"
-        >
-          Must contain at least one number
-        </li>
-      </ul>
-    </div>
+    <Input
+      title="Password"
+      v-model="form.password"
+      type="password"
+      placeholder="Choose a strong password"
+      :required="true"
+    />
+    <ul class="text-xs text-neutral-500 list-disc ml-5 space-y-1 -mt-2">
+      <li :class="ruleClass(errors.password, 'characters')">At least 8 characters</li>
+      <li :class="ruleClass(errors.password, 'uppercase')">One uppercase letter</li>
+      <li :class="ruleClass(errors.password, 'number')">One number</li>
+    </ul>
 
-    <div class="my-2">
-      <Button design="secondary" title="Sign Up" />
+    <Button design="secondary" title="Sign Up" />
+
+    <div class="text-center text-sm text-neutral-400">
+      Already have an account?
+      <RouterLink to="/login" class="text-white hover:text-blue-400 transition-colors underline underline-offset-2">Log in</RouterLink>
     </div>
   </Form>
 </template>
@@ -76,7 +45,7 @@ import Button from "@/components/GlobalComponents/Button.vue";
 import Form from "@/components/GlobalComponents/Form.vue";
 import Input from "@/components/GlobalComponents/Input.vue";
 import { onMounted, reactive } from "vue";
-import { useRoute } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
 const form = reactive({
   name: "",
@@ -89,7 +58,11 @@ const errors = reactive({
   password: [],
 });
 
-const router = useRoute();
+const router = useRouter();
+
+const ruleClass = (list, keyword) => ({
+  'text-red-400 font-medium': list?.some((e) => e.toLowerCase().includes(keyword.toLowerCase())),
+});
 
 const register = async () => {
   try {
@@ -98,9 +71,9 @@ const register = async () => {
       router.push("/");
     }
   } catch (error) {
-    if (error.response.status === 422) {
-      errors.email = error.response.data.errors.email;
-      errors.password = error.response.data.errors.password;
+    if (error.response && error.response.status === 422) {
+      errors.email = error.response.data.errors.email || [];
+      errors.password = error.response.data.errors.password || [];
     }
   }
 };

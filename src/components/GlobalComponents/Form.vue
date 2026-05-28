@@ -1,13 +1,14 @@
 <template>
-  <div class="flex flex-col my-10 text-white border border-white/20 p-10">
-    <h2 class="text-center text-neutral-100 text-2xl font-bold my-5">{{title}}</h2>
-    <form :action :method>
+  <div class="flex flex-col text-white my-10 max-w-md mx-auto">
+    <h2 v-if="title" class="text-center text-neutral-100 text-2xl font-bold mb-8">{{ title }}</h2>
+    <form :action :method class="flex flex-col gap-6" @submit.prevent="$emit('submit', $event)">
       <slot></slot>
     </form>
   </div>
 </template>
 
 <script setup>
+defineEmits(['submit']);
 const props = defineProps({
   action: String,
   method: String,

@@ -1,28 +1,28 @@
 <template>
-  <Form @submit.prevent="login(form)" method="POST" title="Welcome back">
-    <div class="my-4">
-      <Input
-        title="Email"
-        v-model="form.email"
-        type="email"
-        placeholder="johndoe@example.com"
-        :required="true"
-      />
-    </div>
-    <div :class="error.message ? 'my-2' : 'my-4'">
-      <Input
-        title="Password"
-        v-model="form.password"
-        type="password"
-        :required="true"
-        placeholder="Enter your password"
-      />
-    </div>
-    <div v-show="error.message" class="text-white">
-      <p class="text-red-500 text-sm">{{ error.message }}</p>
-    </div>
-    <div class="my-2">
-      <Button design="secondary" title="Sign In" />
+  <Form @submit="login(form)" method="POST" title="Welcome back">
+    <Input
+      title="Email"
+      v-model="form.email"
+      type="email"
+      placeholder="johndoe@example.com"
+      :required="true"
+    />
+
+    <Input
+      title="Password"
+      v-model="form.password"
+      type="password"
+      :required="true"
+      placeholder="Enter your password"
+    />
+
+    <p v-show="error.message" class="text-sm text-red-400">{{ error.message }}</p>
+
+    <Button design="secondary" title="Sign In" />
+
+    <div class="text-center text-sm text-neutral-400">
+      Don't have an account?
+      <RouterLink to="/register" class="text-white hover:text-blue-400 transition-colors underline underline-offset-2">Register</RouterLink>
     </div>
   </Form>
 </template>
@@ -33,7 +33,7 @@ import Button from "@/components/GlobalComponents/Button.vue";
 import Form from "@/components/GlobalComponents/Form.vue";
 import Input from "@/components/GlobalComponents/Input.vue";
 import { onMounted, reactive } from "vue";
-import { useRouter } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
 const form = reactive({
   email: "",
@@ -63,7 +63,7 @@ const login = async () => {
       router.push("/");
     }
   } catch (e) {
-    if (e.response.status === 422) {
+    if (e.response && e.response.status === 422) {
       error.message = e.response.data.message;
     }
   }
