@@ -6,7 +6,7 @@
     <div class="text-xl font-bold">
       <h2>
         <RouterLink
-          :to="`posts/${post.id}`"
+          :to="`/posts/${post.id}`"
           class="hover:text-blue-600 transition-colors"
         >
           {{ post.title }}

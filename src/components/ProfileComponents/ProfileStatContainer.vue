@@ -52,10 +52,6 @@ import { useRoute } from "vue-router";
 const props = defineProps({
   user: Object,
 
-  postCount: Number,
-  readCount: Number,
-  joined: Number,
-
   savedCount: Number,
   streak: Number,
 });

@@ -1,7 +1,7 @@
 <template>
   <button
     type="submit"
-    class="inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition duration-200 cursor-pointer"
+    class="inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm transition duration-200 cursor-pointer"
     :class="[
       design === 'primary'
         ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm'

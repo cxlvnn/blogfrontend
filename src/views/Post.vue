@@ -5,11 +5,14 @@
   </div>
 
   <div v-else class="flex flex-col mt-7 gap-5">
-    <BackButton to="/" message="All Posts" />
+    <BackButton to="/posts" message="All Posts" />
     <Post
+      :id="post.id"
       :title="post.title"
       :content="post.body"
       :date="post.createdAt"
+      :likeCount="post.likeCount"
+      :userLiked="post.userLiked"
       v-model="author"
     />
   </div>
@@ -36,8 +39,7 @@ onMounted(async () => {
   try {
     const response = await api.get(`/posts/${id}`);
     post.value = response.data.data;
-    author.value = response.data.data.relationships.author;
-    console.log(author);
+    author.value = response.data.data.relationships?.author;
   } catch (error) {
     console.error("Error fetching the post", error);
   } finally {

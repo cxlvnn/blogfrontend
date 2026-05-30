@@ -6,6 +6,7 @@
   <Post
     v-else
     v-for="post in posts.data"
+    :key="post.id"
     :date="post.createdAt"
     :title="post.title"
     :content="post.body"
@@ -19,7 +20,7 @@ import Post from "@/components/PostComponents/Post.vue";
 import { onMounted, ref } from "vue";
 import PostsLoading from "@/components/GlobalComponents/LoadingComponents/PostsLoading.vue";
 
-let isLoading = ref(true);
+const isLoading = ref(true);
 const posts = ref([]);
 
 onMounted(async () => {

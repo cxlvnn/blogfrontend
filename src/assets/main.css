@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
 body {
-  width: 40%;
-  margin: auto;
   background-color: #0A0a0a;
 }

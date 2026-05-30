@@ -16,7 +16,7 @@ import ProfileLoading from "@/components/GlobalComponents/LoadingComponents/Prof
 import ProfileAbout from "@/components/ProfileComponents/ProfileAbout.vue";
 import ProfileInfo from "@/components/ProfileComponents/ProfileInfo.vue";
 import ProfileLinks from "@/components/ProfileComponents/ProfileLinks.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const user = ref({});
@@ -24,10 +24,31 @@ const user = ref({});
 const isLoading = ref(true);
 
 const route = useRoute();
-const splits = route.path.split("/");
-const type = splits[splits.length - 1];
+
+watch(
+  () => route.path,
+  async (newPath) => {
+    if (newPath.includes("me")) {
+      isLoading.value = true;
+      user.value = {};
+      try {
+        const response = await api.get("/me");
+        user.value = response.data.data;
+      } catch (error) {
+        console.error("Error fetching user", error);
+      } finally {
+        isLoading.value = false;
+      }
+    }
+  },
+);
 
 const fetchUser = async () => {
+  const splits = route.path.split("/");
+  const type = splits[splits.length - 1];
+
+  isLoading.value = true;
+  user.value = {};
   try {
     const response = await api.get(`/${type}`);
     user.value = response.data.data;
@@ -37,5 +58,6 @@ const fetchUser = async () => {
     isLoading.value = false;
   }
 };
-fetchUser();
+
+watch(() => route.path, fetchUser, { immediate: true });
 </script>

@@ -1,6 +1,8 @@
 <script setup>
 import api from "@/api/axios";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
+
+const route = useRouter();
 
 const logout = async () => {
   await api.get("/sanctum/csrf-cookie", {
@@ -8,6 +10,7 @@ const logout = async () => {
   });
   try {
     await api.delete("/logout");
+    route.push("/login");
   } catch (error) {
     console.error("Error logging out the user", error);
   }
@@ -34,7 +37,7 @@ const logout = async () => {
           <RouterLink to="/login">Login</RouterLink>
         </div>
         <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
-          <a @click="logout()">Logout</a>
+          <a class="hover:cursor-pointer" @click="logout()">Logout</a>
         </div>
       </div>
     </div>

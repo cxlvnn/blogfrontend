@@ -1,8 +1,5 @@
 <template>
   <ProfileStatContainer
-    :postCount="routeProfile() ? user.postCount : ''"
-    :readCount="user.readCount"
-    :joined="routeProfile() ? 8 : null"
     :streak="routeMe() ? 8 : null"
     :savedCount="routeMe() ? 24 : null"
     :user

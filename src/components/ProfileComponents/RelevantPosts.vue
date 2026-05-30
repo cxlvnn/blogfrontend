@@ -6,6 +6,7 @@
     <div class="flex flex-col">
       <div
         v-for="post in posts"
+        :key="post.id"
         class="border-b border-b-white/20 last:border-b-0 py-5"
       >
         <p class="text-xs/tight tracking-widest opacity-60">{{ post.date }}</p>

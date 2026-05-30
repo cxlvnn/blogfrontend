@@ -10,7 +10,12 @@
         class="flex justify-between items-center text-neutral-200 border-b border-b-white/20 last:border-b-0 py-5"
       >
         <p class="py-2">
-          <RouterLink class="hover:text-blue-400 transition-colors" :to="`posts/${post.id}`"> {{ post.title }} </RouterLink>
+          <RouterLink
+            class="hover:text-blue-400 transition-colors"
+            :to="`/posts/${post.id}`"
+          >
+            {{ post.title }}
+          </RouterLink>
         </p>
         <p class="text-sm font-mono text-neutral-400">{{ post.lastRead }}</p>
       </div>

@@ -1,19 +1,27 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import HomeView from "@/views/HomeView.vue";
+import Landing from "@/views/Landing.vue";
 import CreatePost from "@/views/CreatePost.vue";
 import Post from "@/views/Post.vue";
 import Profile from "@/views/Profile.vue";
 import Login from "@/views/Auth/Login.vue";
 import Register from "@/views/Auth/Register.vue";
+import Posts from "@/views/Posts.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
+      name: "landing",
+      component: Landing,
+      meta: { hideHeader: true, hideFooter: true },
+    },
+
+    {
+      path: "/posts",
       name: "home",
-      component: HomeView,
+      component: Posts,
       meta: { hideHeader: false },
     },
 
@@ -49,14 +57,14 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
-      meta: { hideHeader: false },
+      meta: { hideHeader: true },
     },
 
     {
       path: "/register",
       name: "register",
       component: Register,
-      meta: { hideHeader: false },
+      meta: { hideHeader: true },
     },
   ],
 });

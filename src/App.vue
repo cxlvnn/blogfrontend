@@ -7,5 +7,5 @@ import { RouterView } from "vue-router";
 <template>
   <Header v-show="!$route.meta.hideHeader" />
   <RouterView />
-  <Footer />
+  <Footer v-show="!$route.meta.hideFooter" />
 </template>
