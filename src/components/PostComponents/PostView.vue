@@ -87,13 +87,13 @@ const getNameLetters = (author) => {
 
 const likePost = async () => {
   liked.value = !liked.value;
+  if (liked.value === true) {
+    like_count.value++;
+  } else {
+    like_count.value--;
+  }
   try {
-    const response = await api.post(`/posts/${post.id}/like`);
-    if (response.data.liked === true) {
-      like_count.value++;
-    } else {
-      like_count.value--;
-    }
+    await api.post(`/posts/${post.id}/like`);
   } catch (error) {
     console.error("Error liking the post", error);
   }

@@ -7,6 +7,7 @@ import Profile from "@/views/Profile.vue";
 import Login from "@/views/Auth/Login.vue";
 import Register from "@/views/Auth/Register.vue";
 import Posts from "@/views/Posts.vue";
+import Author from "@/views/Author.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,10 +41,11 @@ const router = createRouter({
     },
 
     {
-      path: "/profile",
-      name: "profile",
-      component: Profile,
+      path: "/author/:authorName",
+      name: "author",
+      component: Author,
       meta: { hideHeader: false },
+      props: true,
     },
 
     {
