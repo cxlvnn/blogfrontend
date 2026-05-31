@@ -29,7 +29,7 @@ const props = defineProps({
 const authorStore = useAuthorStore();
 
 onMounted(() => {
-  if (!authorStore.author) {
+  if (!authorStore.author || authorStore.author.name !== props.authorName) {
     authorStore.fetchAuthor(props.authorName);
   }
 });

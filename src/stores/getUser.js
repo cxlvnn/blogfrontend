@@ -1,12 +1,10 @@
 import api from "@/api/axios";
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 export const useUserStore = defineStore("user", () => {
   const user = ref(null);
   const loading = ref(true);
-
-  const isLoggedIn = computed(() => user.value !== null);
 
   async function fetchUser() {
     loading.value = true;
@@ -20,5 +18,5 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  return { user, loading, isLoggedIn, fetchUser };
+  return { user, loading, fetchUser };
 });

@@ -36,7 +36,7 @@
 import Button from "@/components/GlobalComponents/Button.vue";
 import CleanerHeader from "@/components/GlobalComponents/CleanerHeader.vue";
 
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 const route = useRouter();
 </script>

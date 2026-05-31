@@ -1,6 +1,6 @@
 <template>
   <!-- base container -->
-  <div class="flex gap-5 border-b border-b-white/20 py-7 px-2 text-white">
+  <div v-if="userStore.user" class="flex gap-5 border-b border-b-white/20 py-7 px-2 text-white">
     <div
       class="w-20 h-20 border border-neutral-800 rounded-full bg-gray-400/10 flex items-center justify-center font-medium text-white/60 text-3xl"
     >
@@ -20,10 +20,10 @@
       </div>
 
       <!-- specific additional info -->
-      <div class="flex gap-2 items-center text-sm opacity-60">
-        <p class="text-xs">Joined in {{ userStore.user.joinedAt }}</p>
+      <div class="flex gap-2 items-center text-sm">
+        <p class="text-xs text-neutral-500">Joined in {{ userStore.user.joinedAt }}</p>
         <p
-          class="bg-gray-100/10 py-0.5 px-2 border border-gray-100/20 font-medium rounded"
+          class="bg-neutral-900 text-neutral-400 py-0.5 px-2 border border-gray-100/20 font-medium rounded"
         >
           {{ userStore.user.type }}
         </p>

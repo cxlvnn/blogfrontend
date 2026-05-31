@@ -8,6 +8,7 @@ import Login from "@/views/Auth/Login.vue";
 import Register from "@/views/Auth/Register.vue";
 import Posts from "@/views/Posts.vue";
 import Author from "@/views/Author.vue";
+import { useAuthStore } from "@/stores/authStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,28 +24,28 @@ const router = createRouter({
       path: "/posts",
       name: "home",
       component: Posts,
-      meta: { hideHeader: false },
+      meta: { hideHeader: false, requiresAuth: true },
     },
 
     {
       path: "/posts/create",
       name: "posts.create",
       component: CreatePost,
-      meta: { hideHeader: false },
+      meta: { hideHeader: false, requiresAuth: true },
     },
 
     {
       path: "/posts/:id",
       name: "posts.view",
       component: Post,
-      meta: { hideHeader: false },
+      meta: { hideHeader: false, requiresAuth: true },
     },
 
     {
       path: "/author/:authorName",
       name: "author",
       component: Author,
-      meta: { hideHeader: false },
+      meta: { hideHeader: false, requiresAuth: true },
       props: true,
     },
 
@@ -52,23 +53,43 @@ const router = createRouter({
       path: "/me",
       name: "me",
       component: Profile,
-      meta: { hideHeader: false },
+      meta: { hideHeader: false, requiresAuth: true },
     },
 
     {
       path: "/login",
       name: "login",
       component: Login,
-      meta: { hideHeader: true },
+      meta: { hideHeader: true, guest: true },
     },
 
     {
       path: "/register",
       name: "register",
       component: Register,
-      meta: { hideHeader: true },
+      meta: { hideHeader: true, guest: true },
     },
   ],
+});
+
+router.beforeEach(async (to, from) => {
+  const authStore = useAuthStore();
+
+  if (to.meta.requiresAuth) {
+    const isLoggedIn = await authStore.checkIfLoggedIn();
+    if (!isLoggedIn) {
+      return { name: "login" };
+    }
+  }
+
+  if (to.meta.guest) {
+    const isLoggedIn = await authStore.checkIfLoggedIn();
+    if (isLoggedIn) {
+      return { name: "home" };
+    }
+  }
+
+  return true;
 });
 
 export default router;

@@ -1,8 +1,10 @@
 <script setup>
 import api from "@/api/axios";
 import { RouterLink, useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
 
-const route = useRouter();
+const router = useRouter();
+const authStore = useAuthStore();
 
 const logout = async () => {
   await api.get("/sanctum/csrf-cookie", {
@@ -10,7 +12,8 @@ const logout = async () => {
   });
   try {
     await api.delete("/logout");
-    route.push("/login");
+    authStore.setLoggedIn(false);
+    router.push("/login");
   } catch (error) {
     console.error("Error logging out the user", error);
   }
@@ -26,19 +29,24 @@ const logout = async () => {
     </div>
     <div class="flex justify-between text-sm text-neutral-400">
       <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
+        <RouterLink class="pr-5" to="/posts">Posts</RouterLink>
         <RouterLink class="pr-5" to="/posts/create">Write</RouterLink>
         <RouterLink to="/me">Profile</RouterLink>
       </div>
       <div class="flex gap-4">
-        <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
-          <RouterLink to="/register">Register</RouterLink>
-        </div>
-        <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
-          <RouterLink to="/login">Login</RouterLink>
-        </div>
-        <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
-          <a class="hover:cursor-pointer" @click="logout()">Logout</a>
-        </div>
+        <template v-if="!authStore.isLoggedIn">
+          <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
+            <RouterLink to="/register">Register</RouterLink>
+          </div>
+          <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
+            <RouterLink to="/login">Login</RouterLink>
+          </div>
+        </template>
+        <template v-else>
+          <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
+            <a class="hover:cursor-pointer" @click="logout()">Logout</a>
+          </div>
+        </template>
       </div>
     </div>
   </nav>

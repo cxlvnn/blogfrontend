@@ -59,6 +59,7 @@ import Form from "@/components/GlobalComponents/Form.vue";
 import Input from "@/components/GlobalComponents/Input.vue";
 import { onMounted, reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
 
 const form = reactive({
   name: "",
@@ -72,6 +73,7 @@ const errors = reactive({
 });
 
 const router = useRouter();
+const authStore = useAuthStore();
 
 const ruleClass = (list, keyword) => ({
   "text-red-400 font-medium": list?.some((e) =>
@@ -83,6 +85,7 @@ const register = async () => {
   try {
     const response = await api.post("/register", form);
     if (response.data.user) {
+      authStore.setLoggedIn(true);
       router.push("/posts");
     }
   } catch (error) {

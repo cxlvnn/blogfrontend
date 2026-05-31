@@ -17,7 +17,7 @@ const router = useRouter();
 const createPost = async () => {
   try {
     await api.post("/posts", form);
-    router.push("/");
+    router.push("/posts");
   } catch (error) {
     console.error("Error creating the post", error);
   }
@@ -26,8 +26,17 @@ const createPost = async () => {
 
 <template>
   <Form @submit="createPost" title="Create a Post">
-    <Input title="Title" v-model="form.title" type="text" placeholder="A catchy title..." />
-    <Textarea title="Content" v-model="form.body" placeholder="Write your thoughts here..." />
+    <Input
+      title="Title"
+      v-model="form.title"
+      type="text"
+      placeholder="A catchy title..."
+    />
+    <Textarea
+      title="Content"
+      v-model="form.body"
+      placeholder="Write your thoughts here..."
+    />
     <div class="flex justify-end">
       <Button title="Publish" design="primary" />
     </div>

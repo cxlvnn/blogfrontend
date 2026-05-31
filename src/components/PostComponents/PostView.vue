@@ -15,7 +15,7 @@
           <p>
             <RouterLink
               class="hover:text-neutral-300 transition-colors"
-              to="/profile"
+              :to="`/author/${author.name}`"
               >{{ author?.name }}</RouterLink
             >
           </p>

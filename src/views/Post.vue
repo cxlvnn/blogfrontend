@@ -27,8 +27,7 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const splits = route.path.split("/");
-const id = splits[splits.length - 1];
+const id = route.params.id;
 
 const isLoading = ref(true);
 

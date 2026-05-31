@@ -43,6 +43,7 @@ import Form from "@/components/GlobalComponents/Form.vue";
 import Input from "@/components/GlobalComponents/Input.vue";
 import { onMounted, reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
 
 const form = reactive({
   email: "",
@@ -54,6 +55,7 @@ const error = reactive({
 });
 
 const router = useRouter();
+const authStore = useAuthStore();
 
 onMounted(async () => {
   try {
@@ -69,6 +71,7 @@ const login = async () => {
   try {
     const response = await api.post("/login", form);
     if (response.data.user) {
+      authStore.setLoggedIn(true);
       router.push("/posts");
     }
   } catch (e) {
