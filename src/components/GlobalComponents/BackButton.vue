@@ -14,7 +14,11 @@
 import { RouterLink } from "vue-router";
 
 const props = defineProps({
-  to: String,
+  to: {
+    type: String,
+    default: "",
+    required: false,
+  },
   message: String,
 });
 </script>

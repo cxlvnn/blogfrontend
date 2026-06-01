@@ -1,7 +1,7 @@
 <template>
   <CleanerHeader />
 
-  <Form @submit="login(form)" method="POST" title="Welcome back">
+  <Form @submit="login(form)" title="Welcome back">
     <Input
       title="Email"
       v-model="form.email"

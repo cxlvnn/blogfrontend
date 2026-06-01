@@ -18,5 +18,15 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  return { user, loading, fetchUser };
+  async function deleteUser(form) {
+    try {
+      await api.delete("/user", { data: form });
+      user.value = null;
+    } catch (error) {
+      console.error("Error deleting the user", error);
+      throw error;
+    }
+  }
+
+  return { user, loading, fetchUser, deleteUser };
 });

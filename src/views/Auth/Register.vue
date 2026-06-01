@@ -82,6 +82,8 @@ const ruleClass = (list, keyword) => ({
 });
 
 const register = async () => {
+  errors.email = [];
+  errors.password = [];
   try {
     const response = await api.post("/register", form);
     if (response.data.user) {
@@ -89,7 +91,7 @@ const register = async () => {
       router.push("/posts");
     }
   } catch (error) {
-    if (error.response && error.response.status === 422) {
+    if (error.response?.status === 422 && error.response.data?.errors) {
       errors.email = error.response.data.errors.email || [];
       errors.password = error.response.data.errors.password || [];
     }

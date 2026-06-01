@@ -3,10 +3,14 @@
     <ProfileLoading />
   </div>
 
-  <div v-else>
+  <div v-else-if="userStore.user">
     <MeAboutSection />
     <MeInfoSection />
     <MeSettingsLinks />
+  </div>
+
+  <div v-else class="py-20 text-center text-neutral-400">
+    <p>Failed to load profile. Please try again later.</p>
   </div>
 </template>
 

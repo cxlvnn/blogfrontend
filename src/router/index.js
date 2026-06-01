@@ -10,6 +10,9 @@ import Posts from "@/views/Posts.vue";
 import Author from "@/views/Author.vue";
 import { useAuthStore } from "@/stores/authStore";
 import NotFound from "@/views/NotFound.vue";
+import EditProfile from "@/views/EditProfile.vue";
+import ChangePassword from "@/views/ChangePassword.vue";
+import DeleteAccount from "@/views/DeleteAccount.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +63,27 @@ const router = createRouter({
       path: "/me",
       name: "me",
       component: Profile,
+      meta: { hideHeader: false, requiresAuth: true },
+    },
+
+    {
+      path: "/me/settings",
+      name: "me.edit",
+      component: EditProfile,
+      meta: { hideHeader: false, requiresAuth: true },
+    },
+
+    {
+      path: "/me/settings/password",
+      name: "me.change.password",
+      component: ChangePassword,
+      meta: { hideHeader: false, requiresAuth: true },
+    },
+
+    {
+      path: "/me/settings/delete",
+      name: "me.delete.account",
+      component: DeleteAccount,
       meta: { hideHeader: false, requiresAuth: true },
     },
 

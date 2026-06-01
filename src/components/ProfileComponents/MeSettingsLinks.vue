@@ -9,7 +9,7 @@
           <p class="py-2">
             <RouterLink
               class="hover:text-blue-400 transition-colors"
-              to="/profile/edit"
+              to="/me/settings"
             >
               Edit Profile
             </RouterLink>
@@ -20,7 +20,7 @@
           <p class="py-2">
             <RouterLink
               class="hover:text-blue-400 transition-colors"
-              to="/change/password"
+              to="/me/settings/password"
             >
               Change Password
             </RouterLink>
@@ -31,7 +31,7 @@
           <p class="py-2">
             <RouterLink
               class="text-red-600 hover:text-red-700 transition-colors"
-              to="/profile/delete"
+              to="/me/settings/delete"
             >
               Delete Account
             </RouterLink>

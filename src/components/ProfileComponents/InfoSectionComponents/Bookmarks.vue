@@ -12,7 +12,7 @@
         <p class="py-2">
           <RouterLink
             class="hover:text-blue-400 transition-colors"
-            :to="`/posts/${bookmarks.bookmarkedPostId}`"
+            :to="`/posts/${bookmark.bookmarkedPostId}`"
           >
             {{ bookmark.bookmarkedPostTitle }}
           </RouterLink>
