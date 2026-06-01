@@ -81,11 +81,19 @@ const post = defineProps({
   content: String,
   likeCount: Number,
   userLiked: String,
+  userSaved: Boolean,
 });
 
-const saved = ref(false);
+const saved = ref(post.userSaved);
+
 const savePost = async () => {
-  saved.value = !saved.value;
+  try {
+    await api.post(`/posts/${post.id}/bookmark`);
+  } catch (error) {
+    console.error("Error bookmarking the post", error);
+  } finally {
+    saved.value = !saved.value;
+  }
 };
 
 const liked = ref(false);
@@ -94,6 +102,7 @@ const user_liked = ref(post.userLiked);
 if (user_liked.value === "true") {
   liked.value = true;
 }
+
 const likePost = async () => {
   liked.value = !liked.value;
   if (liked.value === true) {

@@ -13,6 +13,7 @@
       :date="post.createdAt"
       :likeCount="post.likeCount"
       :userLiked="post.userLiked"
+      :userSaved="post.userSaved"
       v-model="author"
     />
   </div>

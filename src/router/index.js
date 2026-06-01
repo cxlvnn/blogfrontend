@@ -9,10 +9,17 @@ import Register from "@/views/Auth/Register.vue";
 import Posts from "@/views/Posts.vue";
 import Author from "@/views/Author.vue";
 import { useAuthStore } from "@/stores/authStore";
+import NotFound from "@/views/NotFound.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: "/:pathMatch(.*)*",
+      name: "notfound",
+      component: NotFound,
+    },
+
     {
       path: "/",
       name: "landing",

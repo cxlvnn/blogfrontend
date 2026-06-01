@@ -1,10 +1,11 @@
 <template>
   <div>
     <RouterLink
-      class="text-neutral-500 hover:text-blue-400 transition-colors"
+      class="flex w-fit py-1 px-2 bg-neutral-900/70 border border-neutral-800 hover:border-neutral-700 hover:cursor-pointer items-center gap-2 text-neutral-500 hover:text-neutral-400 transition-colors"
       :to
     >
-      &larr; {{ message }}
+      <i class="pi pi-chevron-circle-left"></i>
+      <p>{{ message }}</p>
     </RouterLink>
   </div>
 </template>

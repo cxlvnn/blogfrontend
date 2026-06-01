@@ -16,8 +16,9 @@ const router = useRouter();
 
 const createPost = async () => {
   try {
-    await api.post("/posts", form);
-    router.push("/posts");
+    const response = await api.post("/posts", form);
+    const id = response.data.data.id;
+    router.push(`/posts/${id}`);
   } catch (error) {
     console.error("Error creating the post", error);
   }
