@@ -57,7 +57,7 @@ import Button from "@/components/GlobalComponents/Button.vue";
 import CleanerHeader from "@/components/GlobalComponents/CleanerHeader.vue";
 import Form from "@/components/GlobalComponents/Form.vue";
 import Input from "@/components/GlobalComponents/Input.vue";
-import { onMounted, reactive } from "vue";
+import { onMounted, onUpdated, reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 
@@ -95,10 +95,11 @@ const register = async () => {
       errors.email = error.response.data.errors.email || [];
       errors.password = error.response.data.errors.password || [];
     }
+    getCookie();
   }
 };
 
-onMounted(async () => {
+const getCookie = async () => {
   try {
     await api.get("/sanctum/csrf-cookie", {
       baseURL: "http://localhost:8001",
@@ -106,5 +107,9 @@ onMounted(async () => {
   } catch (error) {
     console.error("Error getting the CSRF token", error);
   }
+};
+
+onMounted(async () => {
+  getCookie();
 });
 </script>

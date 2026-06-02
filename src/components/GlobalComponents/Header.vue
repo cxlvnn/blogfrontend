@@ -1,23 +1,8 @@
 <script setup>
-import api from "@/api/axios";
-import { RouterLink, useRouter } from "vue-router";
+import { RouterLink } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 
-const router = useRouter();
 const authStore = useAuthStore();
-
-const logout = async () => {
-  await api.get("/sanctum/csrf-cookie", {
-    baseURL: "http://localhost:8001",
-  });
-  try {
-    await api.delete("/logout");
-    authStore.setLoggedIn(false);
-    router.push("/login");
-  } catch (error) {
-    console.error("Error logging out the user", error);
-  }
-};
 </script>
 
 <template>
@@ -44,7 +29,9 @@ const logout = async () => {
         </template>
         <template v-else>
           <div class="[&_a]:hover:text-neutral-300 [&_a]:transition-colors">
-            <a class="hover:cursor-pointer" @click="logout()">Logout</a>
+            <a class="hover:cursor-pointer" @click="authStore.logout()"
+              >Logout</a
+            >
           </div>
         </template>
       </div>

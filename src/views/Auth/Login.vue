@@ -18,9 +18,7 @@
       placeholder="Enter your password"
     />
 
-    <p v-show="error.message" class="text-sm text-red-400">
-      {{ error.message }}
-    </p>
+    <ErrorContainer v-if="error.message" :title="error.message" />
 
     <Button design="secondary" title="Sign In" />
 
@@ -44,6 +42,7 @@ import Input from "@/components/GlobalComponents/Input.vue";
 import { onMounted, reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
+import ErrorContainer from "@/components/GlobalComponents/ErrorContainer.vue";
 
 const form = reactive({
   email: "",
@@ -57,7 +56,7 @@ const error = reactive({
 const router = useRouter();
 const authStore = useAuthStore();
 
-onMounted(async () => {
+const getCookie = async () => {
   try {
     await api.get("/sanctum/csrf-cookie", {
       baseURL: "http://localhost:8001",
@@ -65,6 +64,10 @@ onMounted(async () => {
   } catch (error) {
     console.error("Error getting the CSRF token", error);
   }
+};
+
+onMounted(() => {
+  getCookie();
 });
 
 const login = async () => {
@@ -78,6 +81,7 @@ const login = async () => {
     if (e.response && e.response.status === 422) {
       error.message = e.response.data.message;
     }
+    getCookie();
   }
 };
 </script>
