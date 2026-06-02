@@ -9,9 +9,9 @@
     </div>
 
     <div class="flex flex-col w-full">
-      <Form title="Edit Profile">
+      <Form @submit="editProfile(form)" title="Edit Profile">
         <Input title="Name" v-model="form.name" />
-        <Input title="Email" v-model="form.email" />
+        <Input title="Email" v-model="form.email" type="email" />
         <Textarea title="Bio" v-model="form.bio" />
         <Button design="secondary" title="Save Changes" />
       </Form>
@@ -33,6 +33,7 @@ import Input from "@/components/GlobalComponents/Input.vue";
 import Textarea from "@/components/GlobalComponents/Textarea.vue";
 import ProfileLoading from "@/components/GlobalComponents/LoadingComponents/ProfileLoading.vue";
 import { useUserStore } from "@/stores/getUser";
+import api from "@/api/axios";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -58,4 +59,14 @@ onMounted(() => {
     form.value.bio = userStore.user.bio || "";
   }
 });
+
+const editProfile = async (form) => {
+  try {
+    const response = await api.put("/user", form);
+    userStore.user.value = response.data.data;
+    router.push("/me");
+  } catch (error) {
+    console.error("Error changing profile", error);
+  }
+};
 </script>
