@@ -14,7 +14,7 @@
       </h2>
     </div>
     <div class="text-sm text-white/70">
-      <p>{{ post.content }}</p>
+      <p class="line-clamp-2">{{ post.content }}</p>
     </div>
   </div>
 </template>

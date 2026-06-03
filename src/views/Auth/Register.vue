@@ -57,7 +57,7 @@ import Button from "@/components/GlobalComponents/Button.vue";
 import CleanerHeader from "@/components/GlobalComponents/CleanerHeader.vue";
 import Form from "@/components/GlobalComponents/Form.vue";
 import Input from "@/components/GlobalComponents/Input.vue";
-import { onMounted, onUpdated, reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 
