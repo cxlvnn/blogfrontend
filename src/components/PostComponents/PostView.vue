@@ -31,7 +31,7 @@
       <p v-html="content"></p>
     </div>
 
-    <div class="flex flex-row items-center justify-between gap-2">
+    <div class="flex flex-row items-center gap-2">
       <div
         @click="likePost()"
         :class="
@@ -57,7 +57,7 @@
         :class="
           saved
             ? 'border-blue-500 text-blue-500'
-            : 'border-neutral-800 hover:border-neutral-700'
+            : 'border-neutral-800 hover:border-neutral-700 text-neutral-400'
         "
         class="bg-neutral-900 border transition-colors rounded hover:cursor-pointer py-2 px-4"
       >

@@ -1,36 +1,59 @@
+<script setup>
+import { onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import Post from "@/components/PostComponents/Post.vue";
+import Paginator from "@/components/GlobalComponents/Paginator.vue";
+import PostsLoading from "@/components/GlobalComponents/LoadingComponents/PostsLoading.vue";
+import { usePostStore } from "@/stores/PostStore";
+
+const postStore = usePostStore();
+const route = useRoute();
+const router = useRouter();
+
+function getPageFromRoute() {
+  const page = parseInt(route.query.page, 10);
+  return Number.isNaN(page) || page < 1 ? 1 : page;
+}
+
+function loadPage(page) {
+  router.replace({ query: { ...route.query, page } });
+  postStore.fetchPosts(page);
+}
+
+onMounted(() => {
+  postStore.fetchPosts(getPageFromRoute());
+});
+
+watch(
+  () => route.query.page,
+  (newPage) => {
+    const page = parseInt(newPage, 10);
+    if (!Number.isNaN(page) && page !== postStore.currentPage) {
+      postStore.fetchPosts(page);
+    }
+  },
+);
+</script>
+
 <template>
-  <div v-if="isLoading">
+  <div v-if="postStore.loading">
     <PostsLoading />
   </div>
 
-  <Post
-    v-else
-    v-for="post in posts.data"
-    :key="post.id"
-    :date="post.createdAt"
-    :title="post.title"
-    :content="post.body"
-    :id="post.id"
+  <template v-else>
+    <Post
+      v-for="post in postStore.posts.data"
+      :key="post.id"
+      :id="post.id"
+      :date="post.createdAt"
+      :title="post.title"
+      :content="post.body"
+    />
+  </template>
+
+  <Paginator
+    v-if="postStore.posts.meta?.last_page > 1"
+    :links="postStore.posts.meta.links"
+    @change="loadPage"
   />
 </template>
-
-<script setup>
-import api from "@/api/axios";
-import Post from "@/components/PostComponents/Post.vue";
-import { onMounted, ref } from "vue";
-import PostsLoading from "@/components/GlobalComponents/LoadingComponents/PostsLoading.vue";
-
-const isLoading = ref(true);
-const posts = ref([]);
-
-onMounted(async () => {
-  try {
-    const response = await api.get("/posts", {});
-    posts.value = response.data;
-  } catch (error) {
-    console.error("Error fetching posts", error);
-  } finally {
-    isLoading.value = false;
-  }
-});
-</script>
