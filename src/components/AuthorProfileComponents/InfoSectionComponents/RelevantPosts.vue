@@ -12,7 +12,9 @@
         <p class="text-xs/tight tracking-widest opacity-60">
           {{ post.createdAt }}
         </p>
-        <p class="py-2 font-bold">{{ post.title }}</p>
+        <p class="py-2 font-bold">
+          <a :href="`/posts/${post.id}`"> {{ post.title }} </a>
+        </p>
         <p class="text-sm opacity-60 truncate">{{ post.content }}</p>
       </div>
     </div>
