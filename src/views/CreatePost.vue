@@ -4,8 +4,19 @@ import Button from "@/components/GlobalComponents/Button.vue";
 import Form from "@/components/GlobalComponents/Form.vue";
 import Input from "@/components/GlobalComponents/Input.vue";
 import Textarea from "@/components/GlobalComponents/Textarea.vue";
-import { reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+
+const tags = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await api.get("/post/create");
+    tags.value = response.data;
+  } catch (error) {
+    console.error("Unable to get tags: ", error);
+  }
+});
 
 const form = reactive({
   title: "",
@@ -38,6 +49,15 @@ const createPost = async () => {
       v-model="form.body"
       placeholder="Write your thoughts here..."
     />
+
+    <div class="text-neutral-300 font-medium text-sm">
+      <label for="tag">Choose a tag:</label>
+      <select name="tag" id="tag">
+        <option v-for="(tag, index) in tags" :key="index" :value="tag">
+          {{ tag }}
+        </option>
+      </select>
+    </div>
     <div class="flex justify-end">
       <Button title="Publish" design="primary" />
     </div>

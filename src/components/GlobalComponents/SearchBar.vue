@@ -22,7 +22,6 @@ import Input from "@/components/GlobalComponents/Input.vue";
 
 const tags = [
   {
-    active: true,
     name: "All",
   },
   {
