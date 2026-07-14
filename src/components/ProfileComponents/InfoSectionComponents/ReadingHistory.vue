@@ -22,7 +22,7 @@
     </div>
 
     <div v-if="!readings.length">
-      <div class="text-neutral-600 text-sm font-medium">
+      <div class="text-neutral-600 text-sm">
         <p>Nothing to be displayed</p>
       </div>
     </div>
