@@ -20,7 +20,11 @@
   <div class="flex flex-col gap-4 my-5 text-white">
     <h1 class="font-medium uppercase text-neutral-500">Comments</h1>
 
-    <div class="border-b border-white/15" v-show="comments?.length" v-for="comment in comments">
+    <div
+      class="border-b border-white/15"
+      v-show="comments?.length"
+      v-for="comment in comments"
+    >
       <Comment
         :authorName="comment.relationships?.authorName"
         :body="comment.body"
@@ -36,8 +40,8 @@
       <h1 class="font-medium text-neutral-300 text-sm">Add comment</h1>
 
       <form @submit.prevent="createComment(comment)">
-        <textarea
-          class="w-full border border-white/15 bg-neutral-900/20 rounded my-2 h-20 p-2 outline-none focus:border-blue-500"
+        <input
+          class="w-full border border-white/15 bg-neutral-900/20 rounded my-2 h-10 p-2 outline-none focus:border-blue-500"
           v-model="comment.body"
         />
         <div class="flex justify-end">
@@ -101,6 +105,7 @@ const createComment = async (comment) => {
   try {
     const response = await api.post(`/posts/${id}/comments`, comment);
     comments.value.push(response.data.data);
+    comment.body = "";
   } catch (error) {
     console.error("Error creating the comment", error);
   }

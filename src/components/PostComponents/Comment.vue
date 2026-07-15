@@ -6,9 +6,9 @@
       {{ getNameLetters(authorName) }}
     </div>
 
-    <div>
+    <div @click="commentAuthorProfile(authorName)">
       <div class="flex items-center gap-2">
-        <h1 class="font-medium text-md">
+        <h1 class="font-medium text-md hover:cursor-pointer hover:underline">
           {{ authorName }}
         </h1>
 
@@ -25,6 +25,8 @@
 </template>
 
 <script setup>
+import router from "@/router";
+
 const props = defineProps({
   id: Number,
   authorName: String,
@@ -42,5 +44,9 @@ const getNameLetters = (name) => {
     letters += splits[1][0];
   }
   return letters;
+};
+
+const commentAuthorProfile = (name) => {
+  router.push(`/author/${name}`);
 };
 </script>
