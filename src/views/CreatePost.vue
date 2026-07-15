@@ -21,6 +21,7 @@ onMounted(async () => {
 const form = reactive({
   title: "",
   body: "",
+  tag: "",
 });
 
 const router = useRouter();
@@ -51,10 +52,15 @@ const createPost = async () => {
     />
 
     <div class="text-neutral-300 font-medium text-sm">
-      <label for="tag">Choose a tag:</label>
-      <select name="tag" id="tag">
-        <option v-for="(tag, index) in tags" :key="index" :value="tag">
-          {{ tag }}
+      <label class="block" for="tag">Choose a tag:</label>
+      <select
+        v-model="form.tag"
+        class="border border-white/15 bg-neutral-900/40 rounded w-full p-2 my-2"
+        required
+      >
+        <option value="" disabled selected>Tag for your post</option>
+        <option v-for="tag in tags" :key="tag.value" :value="tag.value">
+          {{ tag.label }}
         </option>
       </select>
     </div>
